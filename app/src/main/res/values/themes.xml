@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ChallengeAA001" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.ChallengeAA001" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -12,5 +12,17 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Dialog.FullScreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:windowSoftInputMode">stateHidden|adjustResize</item>
+        <!-- Set this to true if you want Full Screen without status bar -->
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+        <!-- This is important! Don't forget to set window background -->
+        <item name="android:windowBackground">@color/white</item>
     </style>
 </resources>

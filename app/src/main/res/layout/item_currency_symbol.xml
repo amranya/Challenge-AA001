@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="symbol"
+            type="String" />
+        <variable
+            name="eventListener"
+            type="com.fab.challengeaa001.ui.currencyexchange.rateslist.CurrencySymbolsActionHandler" />
+    </data>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_symbol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/drawable_background_grey_stroke_grey_body"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:text="@{symbol}"
+        android:onClick="@{() -> eventListener.onCurrencySymbolClicked(symbol)}"
+        tools:text="USD">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+</layout>

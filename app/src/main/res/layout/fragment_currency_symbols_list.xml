@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.fab.challengeaa001.ui.currencyexchange.rateslist.CurrencyExchangeRatesListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.currencyexchange.rateslist.CurrencySymbolsListDialog">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_rates_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:paddingTop="4dp"
+            android:clipToPadding="false"
+            app:currencySymbolList="@{viewModel.currencySymbolsList}"
+            app:currencyRatesListViewModel="@{viewModel}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_currency_symbol"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,5 +1,7 @@
 package com.fab.challengeaa001.di;
 
+import com.fab.challengeaa001.di.subcomponents.CurrencyExchangeRatesListComponent;
+
 import javax.inject.Singleton;
 import dagger.Component;
 
@@ -11,4 +13,7 @@ import dagger.Component;
         NetworkingModule.class,
         SharedModule.class
 })
-public interface AppComponent {}
+public interface AppComponent {
+
+    CurrencyExchangeRatesListComponent.Builder currencyExchangeRatesListComponent();
+}

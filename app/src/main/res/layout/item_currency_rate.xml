@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="currencyRate"
+            type="com.fab.challengeaa001.ui.currencyexchange.rateslist.CurrencyRate" />
+
+        <variable
+            name="eventListener"
+            type="com.fab.challengeaa001.ui.currencyexchange.rateslist.CurrencyRatesActionHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/drawable_background_grey_stroke_grey_body"
+        android:layout_marginBottom="8dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:onClick="@{() -> eventListener.onCurrencyRateClicked(currencyRate)}">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_currency_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:text="@{currencyRate.symbol}"
+            tools:text="USD"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_currency_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/txt_currency_symbol"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:text="@{currencyRate.rate}"
+            tools:text="1.78978"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/ic_baseline_bar_chart_black_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
