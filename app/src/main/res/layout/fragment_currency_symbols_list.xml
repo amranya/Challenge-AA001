@@ -15,7 +15,7 @@
         tools:context=".ui.currencyexchange.rateslist.CurrencySymbolsListDialog">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_rates_list"
+            android:id="@+id/recyclerview_symbols_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="4dp"

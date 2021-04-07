@@ -18,11 +18,11 @@ public class CurrencySymbolsAdapter extends ListAdapter<String, CurrencySymbolsA
             new DiffUtil.ItemCallback<String>() {
                 @Override
                 public boolean areItemsTheSame(String oldItem, String newItem) {
-                    return false;
+                    return oldItem == newItem;
                 }
                 @Override
                 public boolean areContentsTheSame(String oldItem, String newItem) {
-                    return false;
+                    return oldItem.equals(newItem);
                 }
             };
 

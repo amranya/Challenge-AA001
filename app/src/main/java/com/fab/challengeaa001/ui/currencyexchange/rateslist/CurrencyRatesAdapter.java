@@ -18,11 +18,11 @@ public class CurrencyRatesAdapter extends ListAdapter<CurrencyRate, CurrencyRate
             new DiffUtil.ItemCallback<CurrencyRate>() {
                 @Override
                 public boolean areItemsTheSame(CurrencyRate oldItem, CurrencyRate newItem) {
-                    return false;
+                    return oldItem == newItem;
                 }
                 @Override
                 public boolean areContentsTheSame(CurrencyRate oldItem, CurrencyRate newItem) {
-                    return false;
+                    return (oldItem.getSymbol().equals(newItem.getSymbol())) && (oldItem.getRate().equals(newItem.getRate()));
                 }
             };
 

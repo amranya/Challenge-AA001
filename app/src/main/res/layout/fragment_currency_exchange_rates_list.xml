@@ -4,6 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.fab.challengeaa001.ui.currencyexchange.rateslist.CurrencyExchangeRatesListViewModel" />
@@ -46,7 +48,7 @@
             android:textColor="@android:color/black"
             android:textAllCaps="true"
             android:text="@{viewModel.selectedCurrency}"
-            android:onClick="@{() -> viewModel.onCurrencySymbolClicked()}"
+            android:onClick="@{() -> viewModel.onChooseCurrencySymbolClicked()}"
             tools:text="usd"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -63,6 +65,17 @@
             app:layout_constraintEnd_toEndOf="@+id/txt_currency_selection_title"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_currency_rate"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/animation_loading"
+            android:visibility="@{viewModel.showProgress ? View.VISIBLE : View.GONE}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

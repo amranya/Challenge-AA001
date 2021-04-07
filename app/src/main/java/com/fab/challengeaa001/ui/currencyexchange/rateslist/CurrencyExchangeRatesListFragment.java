@@ -16,11 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.fab.challengeaa001.CurrencyExchangeApplication;
 import com.fab.challengeaa001.MainActivity;
 import com.fab.challengeaa001.R;
 import com.fab.challengeaa001.databinding.FragmentCurrencyExchangeRatesListBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -57,15 +59,19 @@ public class CurrencyExchangeRatesListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ((MainActivity) requireActivity()).showToolbar();
         ((MainActivity) requireActivity()).setToolbarTitle(getString(R.string.app_name));
-        viewModel.navigateToSymbolsScreen.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean shouldNavigate) {
-                if (shouldNavigate){
-                    Navigation
-                            .findNavController(requireView())
-                            .navigate(CurrencyExchangeRatesListFragmentDirections.actionCurrencyExchangeRatesListFragmentToSymbolsListFragment());
-                    viewModel.doneNavigatingToSymbolsScreen();
-                }
+        viewModel.navigateToSymbolsScreen.observe(getViewLifecycleOwner(), shouldNavigate -> {
+            if (shouldNavigate){
+                Navigation
+                        .findNavController(requireView())
+                        .navigate(CurrencyExchangeRatesListFragmentDirections.actionCurrencyExchangeRatesListFragmentToSymbolsListFragment(viewModel));
+                viewModel.doneNavigatingToSymbolsScreen();
+            }
+        });
+
+        viewModel.showConnectionError.observe(getViewLifecycleOwner(), showConnectionError -> {
+            if(showConnectionError){
+                Snackbar.make(requireView(), "Connection error", Snackbar.LENGTH_LONG).show();
+                viewModel.doneShowingError();
             }
         });
     }
