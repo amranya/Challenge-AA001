@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Challenge#AA001</string>
     <string name="currency">Currency :</string>
+    <string name="last_two_months_rate_history">Taux histoririques des 2 derniers mois</string>
 </resources>
