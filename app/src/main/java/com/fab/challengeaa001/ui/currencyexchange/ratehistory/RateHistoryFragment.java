@@ -8,7 +8,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +17,14 @@ import com.fab.challengeaa001.CurrencyExchangeApplication;
 import com.fab.challengeaa001.MainActivity;
 import com.fab.challengeaa001.R;
 import com.fab.challengeaa001.databinding.FragmentRateHistoryBinding;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -60,6 +67,20 @@ public class RateHistoryFragment extends DialogFragment {
         ((MainActivity) requireActivity()).hideToolbar();
         String currencyPair = RateHistoryFragmentArgs.fromBundle(getArguments()).getCurrencyPair();
         viewModel.init(currencyPair);
+
+        viewModel.ratesEntryList.observe(getViewLifecycleOwner(), this::initRatesLineChart);
+    }
+
+    private void initRatesLineChart(List<Entry> entries) {
+        LineDataSet lineDataSet = new LineDataSet(entries, "");
+        ArrayList<ILineDataSet> iLineDataSets = new ArrayList<>();
+        iLineDataSets.add(lineDataSet);
+        LineData lineData = new LineData(iLineDataSets);
+
+        binding.chartRatesHistory.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        binding.chartRatesHistory.setContentDescription("");
+        binding.chartRatesHistory.setData(lineData);
+        binding.chartRatesHistory.invalidate();
     }
 
 }
