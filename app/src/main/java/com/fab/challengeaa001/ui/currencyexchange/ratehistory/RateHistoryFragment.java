@@ -1,6 +1,7 @@
 package com.fab.challengeaa001.ui.currencyexchange.ratehistory;
 
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +24,13 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +76,20 @@ public class RateHistoryFragment extends DialogFragment {
         String currencyPair = RateHistoryFragmentArgs.fromBundle(getArguments()).getCurrencyPair();
         viewModel.init(currencyPair);
 
-        viewModel.ratesEntryList.observe(getViewLifecycleOwner(), this::initRatesLineChart);
+        viewModel.ratesEntryList.observe(getViewLifecycleOwner(), new Observer<List<Entry>>() {
+            @Override
+            public void onChanged(List<Entry> entries) {
+
+                initRatesLineChart(entries);
+            }
+        });
+
+        viewModel.showConnectionError.observe(getViewLifecycleOwner(), showConnectionError -> {
+            if (showConnectionError) {
+                Snackbar.make(requireView(), "Connection error", Snackbar.LENGTH_LONG).show();
+                viewModel.doneShowingError();
+            }
+        });
     }
 
     private void initRatesLineChart(List<Entry> entries) {
@@ -81,6 +102,8 @@ public class RateHistoryFragment extends DialogFragment {
         binding.chartRatesHistory.setContentDescription("");
         binding.chartRatesHistory.setData(lineData);
         binding.chartRatesHistory.invalidate();
+
     }
+
 
 }
