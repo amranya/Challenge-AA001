@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_currencyExchangeRatesListFragment_to_symbolsListFragment"
             app:destination="@id/currencySymbolsListDialog" />
+        <action
+            android:id="@+id/action_currencyExchangeRatesListFragment_to_rateHistoryFragment"
+            app:destination="@id/rateHistoryFragment" />
     </fragment>
     <dialog
         android:id="@+id/currencySymbolsListDialog"
@@ -21,5 +24,13 @@
         <argument
             android:name="viewModel"
             app:argType="com.fab.challengeaa001.ui.currencyexchange.rateslist.CurrencyExchangeRatesListViewModel" />
+    </dialog>
+    <dialog
+        android:id="@+id/rateHistoryFragment"
+        android:name="com.fab.challengeaa001.ui.currencyexchange.ratehistory.RateHistoryFragment"
+        android:label="RateHistoryFragment" >
+        <argument
+            android:name="currencyPair"
+            app:argType="string" />
     </dialog>
 </navigation>

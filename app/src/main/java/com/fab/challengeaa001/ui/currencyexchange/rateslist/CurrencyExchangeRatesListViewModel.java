@@ -43,9 +43,18 @@ public class CurrencyExchangeRatesListViewModel extends ViewModel implements Cur
     private MutableLiveData<Boolean> _navigateBack = new MutableLiveData<>(false);
     public LiveData<Boolean> navigateBack = _navigateBack;
 
+    private MutableLiveData<Boolean> _navigateToRateHistoryScreen = new MutableLiveData<>(false);
+    public LiveData<Boolean> navigateToRateHistoryScreen = _navigateToRateHistoryScreen;
+
     CurrencyExchangeRepository repository;
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    private String selectedRateCurrency;
+
+    public String getSelectedRateCurrency() {
+        return selectedRateCurrency;
+    }
 
     @Inject
     public CurrencyExchangeRatesListViewModel(CurrencyExchangeRepository repository) {
@@ -108,7 +117,14 @@ public class CurrencyExchangeRatesListViewModel extends ViewModel implements Cur
     }
 
     @Override
-    public void onCurrencyRateClicked(CurrencyRate currencyRate) {}
+    public void onCurrencyRateClicked(CurrencyRate currencyRate) {
+        selectedRateCurrency = currencyRate.getSymbol();
+        _navigateToRateHistoryScreen.setValue(true);
+    }
+
+    public void doneNavigatingToRateHistoryScreen() {
+        _navigateToRateHistoryScreen.setValue(false);
+    }
 
     @Override
     protected void onCleared() {

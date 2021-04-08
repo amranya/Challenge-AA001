@@ -6,10 +6,15 @@ import retrofit2.http.Query;
 
 public interface CurrencyExchangeApiService {
 
-    //To do: this needed to be changed later to actual needed service. This is just a placeholder for test purposes only for now
     @GET("latest")
     Observable<LatestRatesResponse> getLatestRates(@Query("access_key") String accessKey, @Query("base") String base);
 
     @GET("symbols")
     Observable<GetSymbolsResponse> getSymbols(@Query("access_key") String accessKey);
+
+    @GET("symbols")
+    Observable<GetTimeFramedRatesResponse> getTimeFramedRates(@Query("access_key") String accessKey,
+                                                              @Query("start_date") String start_date,
+                                                              @Query("end_date") String end_date, @Query("base") String base,
+                                                              @Query("symbols") String symbols);
 }

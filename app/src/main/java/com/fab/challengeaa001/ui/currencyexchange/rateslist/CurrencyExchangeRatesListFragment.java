@@ -22,6 +22,7 @@ import com.fab.challengeaa001.CurrencyExchangeApplication;
 import com.fab.challengeaa001.MainActivity;
 import com.fab.challengeaa001.R;
 import com.fab.challengeaa001.databinding.FragmentCurrencyExchangeRatesListBinding;
+import com.fab.challengeaa001.utils.Constants;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public class CurrencyExchangeRatesListFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this, viewModelFactory).get(CurrencyExchangeRatesListViewModel.class);
 
-        binding = FragmentCurrencyExchangeRatesListBinding.inflate(inflater, container, false);
+        binding = FragmentCurrencyExchangeRatesListBinding.inflate(getLayoutInflater());
         binding.setViewModel(viewModel);
         binding.setLifecycleOwner(getViewLifecycleOwner());
 
@@ -60,7 +61,7 @@ public class CurrencyExchangeRatesListFragment extends Fragment {
         ((MainActivity) requireActivity()).showToolbar();
         ((MainActivity) requireActivity()).setToolbarTitle(getString(R.string.app_name));
         viewModel.navigateToSymbolsScreen.observe(getViewLifecycleOwner(), shouldNavigate -> {
-            if (shouldNavigate){
+            if (shouldNavigate) {
                 Navigation
                         .findNavController(requireView())
                         .navigate(CurrencyExchangeRatesListFragmentDirections.actionCurrencyExchangeRatesListFragmentToSymbolsListFragment(viewModel));
@@ -68,8 +69,20 @@ public class CurrencyExchangeRatesListFragment extends Fragment {
             }
         });
 
+        viewModel.navigateToRateHistoryScreen.observe(getViewLifecycleOwner(), shouldNavigate -> {
+            if (shouldNavigate) {
+                Navigation
+                        .findNavController(requireView())
+                        .navigate(CurrencyExchangeRatesListFragmentDirections
+                                .actionCurrencyExchangeRatesListFragmentToRateHistoryFragment(
+                                        viewModel.selectedCurrency.getValue() + Constants.DELIMITER + viewModel.getSelectedRateCurrency()
+                                ));
+                viewModel.doneNavigatingToRateHistoryScreen();
+            }
+        });
+
         viewModel.showConnectionError.observe(getViewLifecycleOwner(), showConnectionError -> {
-            if(showConnectionError){
+            if (showConnectionError) {
                 Snackbar.make(requireView(), "Connection error", Snackbar.LENGTH_LONG).show();
                 viewModel.doneShowingError();
             }
